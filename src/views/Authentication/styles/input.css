@@ -1,0 +1,52 @@
+
+body {
+	height: 500px;
+	font-family: "Nunito";
+}
+
+.ant-input:hover {
+	border-color: #262626;
+	outline: 0;
+	-webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+	box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+}
+
+.ant-input:focus {
+	border-color: #262626;
+	outline: 0;
+	-webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+	box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+}
+
+.input_password:hover {
+	border-color: #262626;
+	outline: 0;
+	-webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+	box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+}
+
+
+.input_password:focus {
+	border-color: #262626;
+	outline: 0;
+	-webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+	box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+}
+
+.ant-btn:hover {
+	border-color: #FF9138;
+}
+
+.space-align-block {
+  flex: none;
+  margin: 8px 4px;
+  /* border: 1px solid #40a9ff; */
+}
+
+.text_tittle {
+	position: absolute;
+  top: 53%;
+  left: 61%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}

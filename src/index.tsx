@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.variable.min.css'
+import 'react-calendar/dist/Calendar.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
