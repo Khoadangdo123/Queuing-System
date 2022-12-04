@@ -193,6 +193,8 @@ const DashBoard: React.FC = () => {
 
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 
+	console.log(window.location.href.split('/')[3]);
+
 	const theme = useTheme(themeName);
 
 	return (

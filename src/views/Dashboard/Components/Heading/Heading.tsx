@@ -6,8 +6,8 @@ import { Image, Typography, Layout, Menu, Space, Select } from 'antd';
 import type { MenuProps } from 'antd';
 
 import './Heading.css';
-import { ThemeProvider, themes, useTheme } from '../../../config/theme/theme';
-import { UserImg } from '../Img/Image';
+import { ThemeProvider, themes, useTheme } from '../../../../config/theme/theme';
+import { UserImg } from '../../Img/Image';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Text, Title } = Typography;
@@ -93,7 +93,7 @@ const Heading = () => {
 	return (
 		<div>
 			<ThemeProvider value={themeName}>
-				<Header className="site-layout-background" style={{ height: '100%', padding: 0, background: '#fff' }}>
+				<Header className="site-layout-background" style={{ height: 60, padding: 0, background: '#fff' }}>
 					<div
 						style={{ 
 							display: 'flex',

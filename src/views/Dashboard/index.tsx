@@ -16,7 +16,7 @@ import type { MenuProps } from 'antd';
 
 import { ThemeProvider, useTheme, themes } from '../../config/theme/theme';
 import Slider from './Components/Slider';
-import Heading from './Components/Heading';
+import Heading from './Components/Heading/Heading';
 import User from './Content/Information/User';
 // Routes all of contents
 import DashBoard from './Content/DashBoard/DashBoard';

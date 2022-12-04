@@ -27,6 +27,7 @@
     "rc-field-form": "^1.27.3",
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",
+    "react-calendar-icon": "^0.10.0",
     "react-color-theme": "^1.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
