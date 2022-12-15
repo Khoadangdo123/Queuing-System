@@ -12,182 +12,81 @@ import { RiArrowRightSFill, RiArrowLeftSFill } from 'react-icons/ri';
 const { Text, Title } = Typography;
 
 interface DataType {
-	key: string,
-	codeDevice: string,
-	nameDevice: string,
-	ipAddress: string,
-	statusActions: string[],
-	statusConnects: string[],
-	serviceUse: string
+	key: string;
+	number: string;
+	status: string;
 };
 
 const columns: ColumnsType<DataType> = [
 	{
-		title: (
-			<Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 700 }}>
-				Mã thiết bị
-			</Text>
-		),
-		width: '8%',
-		dataIndex: 'codeDevice',
-		key: 'codeDevice',
+		title: 'Số thứ tự',
+		dataIndex: 'number',
+		key: 'number',
 		render: (text) => {
 			return (
-				<>
-					<div>
-						<Text>
-							{text}
-						</Text>
-					</div>
-				</>
-			)
-		}
-	},
-	{
-		title: 'Tên thiết bị',
-		dataIndex: 'nameDevice',
-		key: 'nameDevice',
-		width: '8%',
-		render: (text) => {
-			return (
-				<>
-					<div>
-						<Text>
-							{text}
-						</Text>
-					</div>
-				</>
-			)
-		}
-	},
-	{
-		title: 'Địa chỉ IP',
-		dataIndex: 'nameDevice',
-		key: 'nameDevice',
-		width: '8%',
-		render: (text) => {
-			return (
-				<>
-					<div>
-						<Text>
-							{text}
-						</Text>
-					</div>
-				</>
-			)
-		}
-	},
-	{
-		title: (
-			<Text style={{ fontSize: 16, fontWeight: 700 }}>
-				Trạng thái hoạt động
-			</Text>
-		),
-		dataIndex: 'statusActions',
-		key: 'statusActions',
-		width: '13%',
-		render: (_, { statusActions }) => {
-			return (
-				<>
-					{statusActions.map((statusAction, index) => {
-						let color = statusAction == 'Ngưng hoạt động' ? '#EC3740' : '#34CD26';
-						return (
-							<div key={index} style={{ display: 'flex' }}>
-								<div style={{ marginTop: '1px', paddingRight: '2px' }}>
-									<GoPrimitiveDot style={{ color: color }} />
-								</div>
-								<div>
-									<Text key={statusAction}>
-										{statusAction}
-									</Text>
-								</div>
-							</div>
-						);
-					})}
-				</>
-			)
-		},
-	},
-	{
-		title: 'Trạng thái kết nối',
-		dataIndex: 'statusConnects',
-		key: 'statusConnects',
-		width: '11%',
-		render: (_, { statusConnects }) => {
-			return (
-				<>
-					{
-						statusConnects.map((statusConnect, index) => {
-							let color = statusConnect == 'Mất kết nối' ? '#EC3740' : '#34CD26';
-							return (
-								<div key={index} style={{ display: 'flex' }}>
-									<div style={{ marginTop: '1px', paddingRight: '2px' }}>
-										<GoPrimitiveDot style={{ color: color }} />
-									</div>
-									<div>
-										<Text key={statusConnect}>
-											{statusConnect}
-										</Text>
-									</div>
-								</div>
-							)
-						})
-					}
-				</>
-			)
-		},
-	},
-	{
-		title: 'Dịch vụ sử dụng',
-		dataIndex: 'serviceUse',
-		key: 'serviceUse',
-		width: "18%",
-		render: (text) => {
-			return (
-				<Text>
+				<Text style={{ fontSize: 14, fontWeight: 400, color: '#535261' }}>
 					{text}
-					<br />
-					<a>Xem thêm</a>
 				</Text>
-			)
-		},
+			);
+		}
 	},
 	{
-		title: '',
-		dataIndex: 'details',
-		key: 'details',
-		width: '6%',
+		title: 'Trạng thái',
+		dataIndex: 'status',
+		key: 'status',
 		render: (text) => {
-			return (
-				<div>
-					<a
-						style={{
-							textDecoration: 'underline'
-						}}
-						href=""
-					>
-						Chi tiết
-					</a>
-				</div>
-			)
-		},
-	},
-	{
-		title: '',
-		dataIndex: 'updated',
-		key: 'updated',
-		width: '6%',
-		render: (_, text) => {
-			return (
-				<div>
-					<a
-						style={{
-							textDecoration: 'underline'
-						}}
-						href=""
-					>Cập nhật</a>
-				</div>
-			)
+			if (text == 'Đã hoàn thành') {
+				return (
+					<div className="space-align-container">
+						<div className="space-align-block">
+							<Space align="center">
+								<GoPrimitiveDot style={{ color: '#34CD26', marginTop: 6 }} />
+								<Text style={{ fontSize: 14, color: '#535261', fontWeight: 400 }}>
+									Đã hoàn thành
+								</Text>
+							</Space>
+						</div>
+					</div>
+				)
+			} else if (text == 'Đang thực hiện') {
+				return (
+					<div className="space-align-container">
+						<div className="space-align-block">
+							<Space align="center">
+								<GoPrimitiveDot style={{ color: '#5490EB', marginTop: 6 }} />
+								<Text style={{ fontSize: 14, color: '#535261', fontWeight: 400 }}>
+									Đã hoàn thành
+								</Text>
+							</Space>
+						</div>
+					</div>
+				)
+			} else if (text == 'Vắng') {
+				return (
+					<div className="space-align-container">
+						<div className="space-align-block">
+							<Space align="center">
+								<GoPrimitiveDot style={{ color: '#6C7585', marginTop: 6 }} />
+								<Text style={{ fontSize: 14, color: '#535261', fontWeight: 400 }}>
+									Vắng
+								</Text>
+							</Space>
+						</div>
+					</div>
+				)
+			} else {
+				return (
+					<div className="space-align-container">
+						<div className="space-align-block">
+							<Space align="center">
+								<Text style={{ fontSize: 14, color: '#535261', fontWeight: 400 }}>
+									Không có dữ liệu
+								</Text>
+							</Space>
+						</div>
+					</div>
+				)
+			}
 		}
 	}
 ];
@@ -195,94 +94,54 @@ const columns: ColumnsType<DataType> = [
 const data: DataType[] = [
 	{
 		key: '1',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Ngưng hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010001',
+		status: 'Đã hoàn thành'
 	},
 	{
 		key: '2',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Kết nối']
+		number: '2010002',
+		status: 'Đã hoàn thành'
 	},
 	{
 		key: '3',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010003',
+		status: 'Đang thực hiện'
 	},
 	{
 		key: '4',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010004',
+		status: 'Vắng'
 	},
 	{
 		key: '5',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010005',
+		status: 'Đã hoàn thành'
 	},
 	{
 		key: '6',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010006',
+		status: 'Đang thực hiện'
 	},
 	{
 		key: '7',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010007',
+		status: 'Vắng'
 	},
 	{
 		key: '8',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010008',
+		status: 'Đã hoàn thành'
 	},
 	{
 		key: '9',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
+		number: '2010009',
+		status: 'Vắng'
 	},
 	{
 		key: '10',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	}
+		number: '2010000',
+		status: 'Đã hoàn thành'
+	},
 ];
 
 const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
@@ -318,7 +177,7 @@ const Tabling = () => {
 				columns={columns}
 				dataSource={data}
 				pagination={{ 
-					pageSize: 9,
+					pageSize: 8,
 					total: totalPages,
 					itemRender: itemRender
 				}}

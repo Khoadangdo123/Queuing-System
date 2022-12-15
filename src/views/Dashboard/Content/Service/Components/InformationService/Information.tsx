@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 
+import { ReactComponent as ArrowLeft } from '../../svg/arrowLeft.svg';
 import { ThemeProvider, themes, useTheme } from '../../../../../../config/theme/theme';
-import { Col, Row, Typography, Select, Input, Button } from 'antd'; 
+import { Col, Row, Typography, Select, Input, DatePicker, Checkbox, Button, Space } from 'antd';
 
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
+import { VscCalendar } from 'react-icons/vsc';
+
 import Tabling from '../Tabling';
+import { formatDateCurrent } from '../../../../../../config/theme/time';
 
 const { Title, Text } = Typography;
 const { Option, OptGroup } = Select;
@@ -14,8 +19,20 @@ const { Option, OptGroup } = Select;
 type ThemeNames = keyof typeof themes;
 
 type AddFunctionDevice = {
-	handleAddData: () => void;
+	handleAddData?: () => void;
 }
+
+const dateFormat = 'DD/MM/YYYY';
+
+const CalendarIcon = (
+	<VscCalendar
+		style={{
+			paddingLeft: 3,
+			fontSize: 18,
+			color: '#FF7506'
+		}}
+	/>
+);
 
 const suffixIcon = (
 	<BiSearch
@@ -26,7 +43,19 @@ const suffixIcon = (
 	/>
 );
 
-const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
+const ArrowLeftIcon = () => {
+	return (
+		<ArrowLeft
+			style={{
+				fontSize: 18,
+				color: 'rgb(40, 39, 57)'
+			}}
+			/>
+	)
+}
+
+
+const Information = ({ handleAddData } : AddFunctionDevice) => {
 
 	const [select1, setSelect1] = useState(false);
 	const [select2, setSelect2] = useState(false);
@@ -45,16 +74,16 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 	const handleChange = (value: string) => {
 		console.log(`selected ${value}`);
 	};
+
+	const dateCurrent = new Date();
+	let resultCurrentDate = formatDateCurrent(dateCurrent);
 	
 	return (
 		<div style={{ padding: '0px 0 0 0px', width: '100%' }}>
 			<ThemeProvider value={themeName}>
-				<Title level={4} style={{ color: theme.textColorOrange, fontWeight: 700, marginLeft: 38, marginBottom: 8, marginTop: 2 }}>
-					Danh sách thiết bị
-				</Title>
 				<Row>
-					<Col xs={2} sm={4} md={6} lg={8} xl={10}>
-						<div style={{ display: 'flex', justifyContent: 'space-around', padding: '0 20px 0 20px' }}>
+					<Col xs={2} sm={4} md={6} lg={8} xl={17}>
+						<div style={{ display: 'flex' }}>
 							<div>
 								<Title
 									level={4}
@@ -64,7 +93,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 										fontWeight: 600
 									}}
 								>
-									Trạng thái hoạt động
+									Trạng thái
 								</Title>
 								<Select
 									showArrow={true}
@@ -76,62 +105,73 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 										)
 									}
 									defaultValue="Tất cả"
-									style={{ width: 300 }}
+									style={{ width: 160, marginLeft: 0 }}
 									onChange={handleChange}
 									onClick={handleChangeUpAndDown1}
 								>
 									<Option value="Tất cả">Tất cả</Option>
-									<Option value="Hoạt động">Hoạt động</Option>
-									<Option value="Ngưng hoạt động">Ngưng hoạt động</Option>
+									<Option value="Đã hoàn thành">Đã hoàn thành</Option>
+									<Option value="Đã thực hiện">Đã thực hiện</Option>
+									<Option value="Vắng">Vắng</Option>
 								</Select>
 							</div>
 							<div>
-								<Title
-									level={4}
-									style={{
-										fontSize: 16,
-										color: '#282739',
-										fontWeight: 600
-									}}
-								>
-									Trạng thái hoạt động
-								</Title>
-								<Select
-									showArrow={true}
-									suffixIcon={
-										select2 ? (
-											<MdArrowDropUp style={{ fontSize: 30, color: theme.textColorOrange }} />
-										) : (
-											<MdArrowDropDown style={{ fontSize: 30, color: theme.textColorOrange }} />
-										)
-									}
-									defaultValue="Tất cả"
-									style={{ width: 300 }}
-									onChange={handleChange}
-									onClick={handleChangeUpAndDown2}
-								>
-									<Option value="Tất cả">Tất cả</Option>
-									<Option value="Kết nối">Kết nối</Option>
-									<Option value="Mất kết nối">Mất kết nối</Option>
-								</Select>
+								<div>
+									<Title
+										level={4}
+										style={{
+											fontSize: 16,
+											color: '#282739',
+											fontWeight: 600,
+											marginLeft: 10
+										}}
+									>
+										Chọn thời gian
+									</Title>
+								</div>
+								<div style={{ display: 'flex', justifyContent: 'space-between', width: 430 }}>
+									<div>
+										<DatePicker
+											defaultValue={moment(resultCurrentDate, dateFormat)}
+											suffixIcon={
+												CalendarIcon
+											}
+											format={dateFormat}
+											style={{
+												marginLeft: 10,
+												width: 200,
+											}}
+										/>
+									</div>
+									<div style={{ marginTop: 13 }}>
+										<ArrowLeftIcon />
+									</div>
+									<div>
+										<DatePicker
+											// defaultValue={moment(resultNextDate, dateFormat)}
+											suffixIcon={
+												CalendarIcon
+											}
+											placeholder={"Chọn thời gian"}
+											format={dateFormat}
+											style={{
+												width: 200,
+											}}
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
 					</Col>
-					<Col xs={20} sm={16} md={12} lg={8} xl={4}>
-					</Col>
-					<Col xs={2} sm={4} md={6} lg={8} xl={10}>
-						<div
-							style={{
-								marginLeft: '180px'	
-							}}
-						
-						>
+					<Col xs={2} sm={4} md={6} lg={8} xl={7}>
+						<div>
 							<Title
 								level={4}
 								style={{
 									fontSize: 16,
 									color: '#282739',
-									fontWeight: 600
+									fontWeight: 600,
+									marginLeft: 40
 								}}
 							>
 								Từ khoá
@@ -139,7 +179,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 							<Input
 								className='input-customize'
 								placeholder='Nhập từ khóa'
-								style={{ width: 400, height: 50, fontSize: 16 }}
+								style={{ width: 206, height: 50, fontSize: 16, marginLeft: 30 }}
 								suffix={suffixIcon}
 							/>
 						</div>
@@ -155,21 +195,10 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 					<div
 						style={{
 							marginTop: '13px',
-							width: '90%'
+							width: '100%'
 						}}
 					>
 						<Tabling />
-						</div>
-					<div
-						style={{ marginTop: '30px', width: 70, height: 100, textAlign: 'center', backgroundColor: '#FFF2E7' }}
-						onClick={handleAddData}
-					>
-							<div style={{ cursor: 'pointer', lineHeight: 2 }}>
-								<BsFillPlusSquareFill style={{ fontSize: 28, marginTop: '16px', color: '#FF9138' }} />
-								<Title style={{ fontSize: 16, color: '#FF7506', fontWeight: 600 }}>
-									Thêm thiết bị
-								</Title>
-							</div>
 					</div>
 				</div>
 			</ThemeProvider>
@@ -177,4 +206,4 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 	)
 }
 
-export default InformationDevice;
+export default Information;

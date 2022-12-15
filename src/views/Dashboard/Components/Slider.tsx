@@ -11,7 +11,7 @@ import { TiMessages } from 'react-icons/ti';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { RiStackLine, RiFilePaper2Line, RiSettingsLine } from 'react-icons/ri';
 
-import { Layout, Menu, Image, Typography } from 'antd';
+import { Layout, Menu, Typography } from 'antd';
 import { getAuth, signOut } from 'firebase/auth';
 import type { MenuProps } from 'antd';
 import LinkDashBoard from './NavLinkSlider/LinkDashBoard';

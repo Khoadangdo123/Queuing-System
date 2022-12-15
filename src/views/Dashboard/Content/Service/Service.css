@@ -43,11 +43,13 @@
 .ant-input-affix-wrapper:hover {
 	border-color: #D4D4D7 !important;
 	border-radius: 7px !important;
+	border: 1.5px solid #FF7506 !important;
 }
 
 .ant-input-affix-wrapper-focused, .ant-input-affix-wrapper:focus {
 	box-shadow: 0 0 2px #ea944e !important;
-	border-color: #D4D4D7 !important;
+	/* border-color: #D4D4D7 !important; */
+	border: 1.5px solid #FF7506 !important;
 }
 
 .ant-select-selection-overflow-item {
@@ -62,7 +64,7 @@
 	color: #FFFFFF !important;
 	font-size: 16px !important;
 	font-weight: 700;
-	text-align: center;
+	text-align: left;
 }
 
 .ant-table-thead .ant-table-cell:first-child {
@@ -158,4 +160,33 @@
 .ant-picker-input > input {
 	color: #A9A9B0 !important;
 	font-size: 16px !important;
+}
+
+/* Input of Tags Customize */
+.ant-input {
+	border: 1.5px solid #D4D4D7 !important;
+	border-radius: 10px !important;
+}
+
+.ant-input:focus {
+	border: 1.5px solid #ef9e5d !important;
+	box-shadow: 0px 0px 0px #ea944e !important;
+}
+
+/* CheckBox Input Tags Customize */
+.ant-checkbox {
+	/* font-size: 20px !important; */
+	border: 1px solid #1890ff;
+	border-radius: 4px !important;
+}
+
+/* Search input Icon  */
+.input-customize > input {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.input-customize > input:focus {
+	border: none !important;
+	box-shadow: none !important;
 }

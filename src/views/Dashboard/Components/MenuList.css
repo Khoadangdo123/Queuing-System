@@ -1,13 +1,9 @@
-.ant-menu-item .ant-menu-item-selected .ant-menu-item-only-child {
-	background-color: aqua;
-}
 
 .menu_list {
 	width: 4000px;
 	height: 100%;
 	display: flex;
 }
-
-.menu_list:hover {
-	background-color: aqua;
+.ant-menu-item .ant-menu-item-active .ant-menu-item-selected {
+	background: #FF7506 !important;
 }

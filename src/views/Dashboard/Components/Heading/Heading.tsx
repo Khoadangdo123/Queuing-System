@@ -93,7 +93,7 @@ const Heading = () => {
 	return (
 		<div>
 			<ThemeProvider value={themeName}>
-				<Header className="site-layout-background" style={{ height: 60, padding: 0, background: '#fff' }}>
+				<Header className="site-layout-background" style={{ height: 60, padding: 0, background: '#f0f2f5' }}>
 					<div
 						style={{ 
 							display: 'flex',

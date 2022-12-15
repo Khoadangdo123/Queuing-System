@@ -70,6 +70,7 @@ const InputFormOnes = () => {
 								</div>	
 							</Title>
 								<Input
+									className='input-customize'
 									placeholder={
 										FormInputRowTwo.placeholderInput
 									}
@@ -114,6 +115,7 @@ const InputFormTwos = () => {
 								</div>
 							</Title>
 							<Input
+								className='input-customize'
 								placeholder={
 									FormInputRowOne.placeholderInput
 								}

@@ -61,11 +61,11 @@
 
 /* Table Cells */
 .ant-table-thead .ant-table-cell {
+	text-align: left;
 	background-color: #FF9138 !important;
 	color: #FFFFFF !important;
 	font-size: 16px !important;
 	font-weight: 700;
-	text-align: center;
 }
 
 .ant-table-thead .ant-table-cell:first-child {
