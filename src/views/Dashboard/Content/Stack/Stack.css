@@ -130,6 +130,35 @@
 	border: 1px solid #FF9138 !important;
 }
 
+/* Customize by className button */
+.cancel_button {
+	background-color: #FFF2E7 !important;
+	border: 1.5px solid #FF9138 !important;
+	border-radius: 10px !important;
+}
+
+.cancel_button-text {
+	color: #FF9138 !important;
+	font-weight: 700 !important;
+	font-size: 16px !important;
+	line-height: 22px !important;
+}
+
+.button_print {
+	background: #FF9138 !important;
+	border-radius: 10px !important;
+	border: 1.5px solid #FF9138 !important;
+}
+
+.button-text {
+	color: #FFFFFF !important;
+	font-weight: 700 !important;
+	font-size: 16px !important;
+	line-height: 22px !important;
+}
+
+/* --------- Style End Button Printer Number ------------ */
+
 .ant-btn-background-ghost.ant-btn-primary:focus, .ant-btn-background-ghost.ant-btn-primary:hover {
 	border: 1px solid #ef9e5d !important;
 	border-radius: 8px !important;
@@ -164,7 +193,7 @@
 }
 
 /* Input of Tags Customize */
-.ant-input {
+/* .ant-input {
 	border: 1.5px solid #D4D4D7 !important;
 	border-radius: 10px !important;
 }
@@ -172,7 +201,7 @@
 .ant-input:focus {
 	border: 1.5px solid #ef9e5d !important;
 	box-shadow: 0px 0px 0px #ea944e !important;
-}
+} */
 
 /* CheckBox Input Tags Customize */
 .ant-checkbox {

@@ -1,3 +1,5 @@
+import '../Stack.css';
+
 import React, { useState } from 'react';
 
 import { Col, Row, Typography, Select, Input, Button } from 'antd'; 
@@ -62,6 +64,45 @@ const ButtonUpdate = ({ onChangeClickUpdated }: PropsAddFunction) => {
 	)
 }
 
+const ButtonCancelPrintNumber = () => {
+	return (
+		<>
+			<Button
+				value="large"
+				style={{
+					width: 150,
+					height: 50
+				}}
+				className="cancel_button"
+			>
+				<Text className='cancel_button-text'>
+					Hủy bỏ
+				</Text>
+			</Button>
+		</>
+	)
+}
+
+const ButtonPrintNumber = () => {
+	return (
+		<>
+			<Button
+				value="large"
+				type='primary'
+				style={{
+					width: 150,
+					height: 50
+				}}
+				className="button_print"
+			>
+				<Text className='button-text'>
+					In số
+				</Text>
+			</Button>
+		</>
+	);
+}
+
 const ButtonFuncAddAndCancelService = ({ addSuccess, onChangeClickFailedFunc, onChangeClickSuccessFunc }) => {
 
 	return (
@@ -106,4 +147,17 @@ const ButtonFuncUpdatedAndCancel = ({ addSuccess, onChangeClickFailedFunc, onCha
 	)
 }
 
-export { ButtonFuncAddAndCancelService };
+const ButtonFuncPrintNumber = () => {
+	return (
+		<>
+			<div>
+				<ButtonCancelPrintNumber />
+			</div>
+			<div>
+				<ButtonPrintNumber />
+			</div>
+		</>
+	);
+}
+
+export { ButtonFuncAddAndCancelService, ButtonFuncPrintNumber };

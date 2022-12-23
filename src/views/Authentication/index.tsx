@@ -37,12 +37,12 @@ export const Main = () => {
 			{
         user ? (
           <>
-            {/* <MainContent  /> */}
+            <MainContent  />
           </>
         ) : (
           <>  
-						{/* <Login /> */}
-            <MainContent />
+						<Login />
+            {/* <MainContent /> */}
           </>
         )
       }

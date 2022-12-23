@@ -118,6 +118,7 @@ const LoginPage: React.FC = () => {
 								inputEmail ? (
 									<>
 										<Input
+											className='input_email'
 											style={{ width: '100%', height: '44px', borderRadius: "10px", marginBottom: '10px' }}
 											placeholder="Email"
 											required
@@ -129,6 +130,7 @@ const LoginPage: React.FC = () => {
 								) : (
 									<>
 										<Input
+											className='input_email'
 											status="error"
 											style={{ width: '100%', height: '44px', borderRadius: "10px", marginBottom: '10px' }}
 											placeholder="Email"

@@ -164,7 +164,7 @@
 }
 
 /* Input of Tags Customize */
-.ant-input {
+/* .ant-input {
 	border: 1.5px solid #D4D4D7 !important;
 	border-radius: 10px !important;
 }
@@ -172,7 +172,7 @@
 .ant-input:focus {
 	border: 1.5px solid #ef9e5d !important;
 	box-shadow: 0px 0px 0px #ea944e !important;
-}
+} */
 
 /* CheckBox Input Tags Customize */
 .ant-checkbox {
