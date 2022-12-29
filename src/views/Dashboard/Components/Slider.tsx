@@ -19,6 +19,7 @@ import LinkDevice from './NavLinkSlider/LinkDevice';
 import LinkService from './NavLinkSlider/LinkService';
 import LinkStack from './NavLinkSlider/LinkStack';
 import LinkReport from './NavLinkSlider/LinkReport';
+import { LinkSettingSystem, LinkSettingAccount, NoteUser } from './NavLinkSlider/LinkSetting';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Text } = Typography;
@@ -48,9 +49,9 @@ const items: MenuItem[] = [
 	getItem(<LinkStack />, '4', <RiStackLine />),
 	getItem(<LinkReport />, '5', <RiFilePaper2Line />),
 	getItem('Cài đặt hệ thống', '6', <RiSettingsLine />, [
-		getItem('Quản lý vai trò', '7'),
-		getItem('Quản lý tài khoản', '8'),
-		getItem('Nhật ký người dùng', '9')
+		getItem(<LinkSettingSystem />, '7'),
+		getItem(<LinkSettingAccount />, '8'),
+		getItem(<NoteUser />, '9')
 	])
 ]
 

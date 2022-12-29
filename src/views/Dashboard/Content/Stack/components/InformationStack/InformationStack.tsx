@@ -214,7 +214,8 @@ const SelectionStack = ({ handleAddData } : AddFunctionDevice) => {
 								style={{
 									fontSize: 16,
 									color: '#282739',
-									fontWeight: 600
+									fontWeight: 600,
+									marginLeft: 10
 								}}
 							>
 								Trạng thái hoạt động

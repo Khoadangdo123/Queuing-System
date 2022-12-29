@@ -14,7 +14,7 @@ type ThemeNames = keyof typeof themes;
 
 const Stack = () => {
 
-	const [add, setAdd] = useState(true);
+	const [add, setAdd] = useState(false);
 	const [select1, setSelect1] = useState(false);
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 	const theme = useTheme(themeName);

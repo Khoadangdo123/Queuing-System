@@ -62,13 +62,13 @@ const ArrowLeftIcon = () => {
 
 const Service = () => {
 
-	const [add, setAdd] = useState(false);
+	const [add, setAdd] = useState(true);
 	const [addSuccess, setAddSuccess] = useState(false);
 	const [select1, setSelect1] = useState(false);
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 
 	// useState use for function Checkbox
-	const [checked, setChecked] = useState(true);
+	const [checked, setChecked] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 
 	const onChangeClickSuccessChange = () => {

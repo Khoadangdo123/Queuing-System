@@ -24,7 +24,9 @@ import Device from './Content/Device/Device';
 import Report from './Content/Report/Report';
 import Stack from './Content/Stack/Stack';
 import Service from './Content/Service/Service';
-import Settings from './Content/Settings/Settings';
+import System from './Content/Settings/System';
+import Account from './Content/Settings/Account';
+import Notes from './Content/Settings/Notes';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Text } = Typography ;
@@ -50,13 +52,15 @@ const MainContent: React.FC = () => {
 					<Layout className="site-layout">
 						<Heading />
 						<Routes>
-								<Route path='/' element={<User />} />
-								<Route path='/dashboard' element={<DashBoard />} />
-								<Route path='/device' element={<Device />} />
-								<Route path='/report' element={<Report />} />
-								<Route path='/stack' element={<Stack />} />
-								<Route path='/service' element={<Service />} />
-								<Route path='/settings' element={<Settings />} />
+							<Route path='/' element={<User />} />
+							<Route path='/dashboard' element={<DashBoard />} />
+							<Route path='/device' element={<Device />} />
+							<Route path='/report' element={<Report />} />
+							<Route path='/stack' element={<Stack />} />
+							<Route path='/service' element={<Service />} />
+							<Route path='/settingsystem' element={<System />} />
+							<Route path='/settingaccount' element={<Account />} />
+							<Route path='/noteuser' element={<Notes />} />
 						</Routes>
 					</Layout>
 				</Layout>
