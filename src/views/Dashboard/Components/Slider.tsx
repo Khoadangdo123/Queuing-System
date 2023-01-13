@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-
+import './MenuList.css';
 
 import { Alta_Media } from '../../Authentication/Img/Image';
 import { ThemeProvider, useTheme, themes } from '../../../config/theme/theme';
@@ -81,7 +81,7 @@ const Slider = () => {
   }
 
 	return (
-		<div>
+		<div style={{ backgroundColor: 'rgb(255, 255, 255)' }}>
 			<Sider theme='light'>
 				<div style={{
 					textAlign: 'center',

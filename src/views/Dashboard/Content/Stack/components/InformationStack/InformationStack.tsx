@@ -224,7 +224,7 @@ const SelectionStack = ({ handleAddData } : AddFunctionDevice) => {
 						<div style={{ display: 'flex', justifyContent: 'space-between', width: 430 }}>
 							<div>
 								<DatePicker
-									defaultValue={moment(resultCurrentDate, dateFormat)}
+									defaultValue={moment('12/01/2023', dateFormat)}
 									suffixIcon={
 										CalendarIcon
 									}

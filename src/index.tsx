@@ -6,7 +6,6 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.min.css';
 import 'antd/dist/antd.variable.min.css'
-import 'react-calendar/dist/Calendar.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

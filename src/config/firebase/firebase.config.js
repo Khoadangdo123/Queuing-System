@@ -1,9 +1,11 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 // import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBZ1_uruMF4MuSSxrd4J9loBRzfF3Mu4U",
   authDomain: "queuing-system-a799e.firebaseapp.com",
+  databaseURL: "https://queuing-system-a799e-default-rtdb.firebaseio.com",
   projectId: "queuing-system-a799e",
   storageBucket: "queuing-system-a799e.appspot.com",
   messagingSenderId: "882159614217",
@@ -12,4 +14,7 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
+
 export { firebaseConfig };

@@ -11,3 +11,14 @@
 .chart_statistic {
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
 }
+
+.ant-menu-inline 
+.ant-menu-item:after, 
+.ant-menu-vertical-left 
+.ant-menu-item:after, 
+.ant-menu-vertical-right 
+.ant-menu-item:after, 
+.ant-menu-vertical 
+.ant-menu-item:after {
+	border-right: none !important;
+}

@@ -1,0 +1,18 @@
+
+
+.ant-menu-item a:hover {
+	color: #FFFFFF;
+}
+
+.ant-menu-submenu:hover>
+.ant-menu-submenu-title>
+.ant-menu-submenu-arrow,
+ .ant-menu-submenu:hover>
+ .ant-menu-submenu-title>.ant-menu-submenu-expand-icon
+ {
+	color: #FFFFFF !important;
+ }
+
+ .ant-menu-submenu-arrow {
+	color: #A9A9B0 !important;
+ }
