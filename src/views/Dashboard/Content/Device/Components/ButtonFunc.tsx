@@ -56,7 +56,7 @@ const ButtonUpdate = ({ onChangeClickUpdated }: PropsAddFunction) => {
 			onClick={onChangeClickUpdated}
 		>
 			<Text style={{ fontSize: 16, color: '#FFFFFF', fontWeight: 700 }}>
-				Thêm thiết bị
+				Cập nhật
 			</Text>
 		</Button>
 	)
@@ -92,12 +92,12 @@ const ButtonFuncUpdatedAndCancel = ({ addSuccess, onChangeClickFailedFunc, onCha
 				<div style={{ display: 'flex', justifyContent: 'space-around', width: '30%' }}>
 					<div>
 						<ButtonCancel
-							onChangeClickFailed={onChangeClickUpdatedFunc}
+							onChangeClickFailed={onChangeClickFailedFunc}
 						/>
 					</div>
 					<div>
 						<ButtonUpdate
-							onChangeClickUpdated={onChangeClickFailedFunc}
+							onChangeClickUpdated={onChangeClickUpdatedFunc}
 						/>
 					</div>
 				</div>
@@ -106,4 +106,4 @@ const ButtonFuncUpdatedAndCancel = ({ addSuccess, onChangeClickFailedFunc, onCha
 	)
 }
 
-export { ButtonFuncAddAndCancel };
+export { ButtonFuncAddAndCancel, ButtonFuncUpdatedAndCancel };

@@ -17,10 +17,6 @@ import { ChartDay, ChartWeek, ChartMonth } from './Chart';
 import { Selection, options } from './Selection';
 import MyCalendar from './MyCalendar';
 
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import { getDatabase, ref, child, get } from "firebase/database";
-import { db } from '../../../../config/firebase/firebase.config';
-
 const { Title, Text } = Typography;
 
 type ThemeNames = keyof typeof themes;
@@ -220,17 +216,6 @@ const ChartSelection = ({ chartType } : { chartType: string }) => {
 const DashBoard: React.FC = () => {
 
 	const [dashBoard, setDashBoard] = useState([]);
-
-	const dbName = ref(getDatabase());
-	get(child(dbName, 'chart'))
-		.then((snapshot) => {
-			console.log(snapshot)
-		})
-		.catch((error) => {
-		})
-
-
-
 
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 

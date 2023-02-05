@@ -1,6 +1,6 @@
 import '../Device.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Space, Table, Typography } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
@@ -8,17 +8,20 @@ import type { PaginationProps } from 'antd';
 
 import { GoPrimitiveDot } from 'react-icons/go';
 import { RiArrowRightSFill, RiArrowLeftSFill } from 'react-icons/ri';
+import { db } from '../../../../../config/firebase/firebase.config';
+
+import { collection, getDocs } from 'firebase/firestore';
 
 const { Text, Title } = Typography;
 
 interface DataType {
-	key: string,
-	codeDevice: string,
-	nameDevice: string,
-	ipAddress: string,
+	key?: string,
+	DeviceCode: string,
+	DeviceName: string,
+	IpAddress: string,
 	statusActions: string[],
 	statusConnects: string[],
-	serviceUse: string
+	ValueSelectProps: string
 };
 
 const columns: ColumnsType<DataType> = [
@@ -29,8 +32,8 @@ const columns: ColumnsType<DataType> = [
 			</Text>
 		),
 		width: '8%',
-		dataIndex: 'codeDevice',
-		key: 'codeDevice',
+		dataIndex: 'DeviceCode',
+		key: 'DeviceCode',
 		render: (text) => {
 			return (
 				<>
@@ -45,8 +48,8 @@ const columns: ColumnsType<DataType> = [
 	},
 	{
 		title: 'Tên thiết bị',
-		dataIndex: 'nameDevice',
-		key: 'nameDevice',
+		dataIndex: 'DeviceName',
+		key: 'DeviceName',
 		width: '8%',
 		render: (text) => {
 			return (
@@ -62,8 +65,8 @@ const columns: ColumnsType<DataType> = [
 	},
 	{
 		title: 'Địa chỉ IP',
-		dataIndex: 'nameDevice',
-		key: 'nameDevice',
+		dataIndex: 'IpAddress',
+		key: 'IpAddress',
 		width: '8%',
 		render: (text) => {
 			return (
@@ -86,24 +89,19 @@ const columns: ColumnsType<DataType> = [
 		dataIndex: 'statusActions',
 		key: 'statusActions',
 		width: '13%',
-		render: (_, { statusActions }) => {
+		render: () => {
 			return (
 				<>
-					{statusActions.map((statusAction) => {
-						let color = statusAction == 'Ngưng hoạt động' ? '#EC3740' : '#34CD26';
-						return (
-							<div style={{ display: 'flex' }}>
-								<div style={{ marginTop: '1px', paddingRight: '2px' }}>
-									<GoPrimitiveDot style={{ color: color }} />
-								</div>
-								<div>
-									<Text key={statusAction}>
-										{statusAction}
-									</Text>
-								</div>
-							</div>
-						);
-					})}
+					<div style={{ display: 'flex' }}>
+						<div style={{ marginTop: '1px', paddingRight: '2px' }}>
+							<GoPrimitiveDot style={{ color: '#EC3740' }} />
+						</div>
+						<div>
+							<Text>
+								{"Ngưng Hoạt Động"}
+							</Text>
+						</div>
+					</div>
 				</>
 			)
 		},
@@ -113,34 +111,27 @@ const columns: ColumnsType<DataType> = [
 		dataIndex: 'statusConnects',
 		key: 'statusConnects',
 		width: '11%',
-		render: (_, { statusConnects }) => {
+		render: (_, ) => {
 			return (
 				<>
-					{
-						statusConnects.map((statusConnect) => {
-							let color = statusConnect == 'Mất kết nối' ? '#EC3740' : '#34CD26';
-							return (
-								<div style={{ display: 'flex' }}>
-									<div style={{ marginTop: '1px', paddingRight: '2px' }}>
-										<GoPrimitiveDot style={{ color: color }} />
-									</div>
-									<div>
-										<Text key={statusConnect}>
-											{statusConnect}
-										</Text>
-									</div>
-								</div>
-							)
-						})
-					}
+					<div style={{ display: 'flex' }}>
+						<div style={{ marginTop: '1px', paddingRight: '2px' }}>
+							<GoPrimitiveDot style={{ color: '#34CD26' }} />
+						</div>
+						<div>
+							<Text>
+								kết nối
+							</Text>
+						</div>
+					</div>
 				</>
 			)
 		},
 	},
 	{
 		title: 'Dịch vụ sử dụng',
-		dataIndex: 'serviceUse',
-		key: 'serviceUse',
+		dataIndex: 'ValueSelectProps',
+		key: 'ValueSelectProps',
 		width: "18%",
 		render: (text) => {
 			return (
@@ -192,99 +183,6 @@ const columns: ColumnsType<DataType> = [
 	}
 ];
 
-const data: DataType[] = [
-	{
-		key: '1',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Ngưng hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '2',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Kết nối']
-	},
-	{
-		key: '3',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '4',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '5',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '6',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '7',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '8',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '9',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	},
-	{
-		key: '10',
-		codeDevice: 'KIO_01',
-		nameDevice: 'Kiosk',
-		ipAddress: '192.168.1.10',
-		serviceUse: 'Khám tim mạch, Khám mắt...',
-		statusActions: ['Hoạt động'],
-		statusConnects: ['Mất kết nối']
-	}
-];
-
 const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
 	if (type === 'prev') {
 		return (
@@ -303,10 +201,53 @@ const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => 
 	return originalElement;
 }
 
-const Tabling = () => {
+type TablingData = {
+	searchProp: string;
+	selectValueOneProp: string;
+	selectValueTwoProp: string;
+}
 
+const Tabling = ({ searchProp, selectValueOneProp, selectValueTwoProp } : TablingData ) => {
+
+	const initState = [
+		{
+			DeviceCode: '',
+			DeviceName: '',
+			IpAddress: '',
+		}
+	];
 	const [pagination, setPagination] = useState({});
 	const [totalPages, setTotalPages] = useState(10);
+	const [dataTable, setDataTable] = useState<any>(initState);
+
+	const tableColectionRef = collection(db, "device_data");
+
+	const getTableData = async () => {
+		const data = await getDocs(tableColectionRef);
+		setDataTable(data.docs.map((doc : any) => ({ ...doc.data(), id: doc.id })))
+	}
+	useEffect(() => {
+
+		getTableData();		
+
+	}, []);
+
+	useEffect(() => {
+
+		const searchFilter = () => {
+	
+			let filterSearch = dataTable.filter((dataText) => {
+				return (
+					dataText.DeviceCode.includes(searchProp) ||
+					dataText.DeviceName.includes(searchProp) ||
+					dataText.IpAddress.includes(searchProp)
+				);
+			});
+			setDataTable(filterSearch);
+		}
+		searchFilter();
+
+	}, [searchProp, selectValueOneProp, selectValueTwoProp]);
 
 	// const handleTableChange: TableProps<any>["onChange"] = (pagination) => {
 	// 	setPagination
@@ -316,7 +257,7 @@ const Tabling = () => {
 		<div>
 			<Table
 				columns={columns}
-				dataSource={data}
+				dataSource={dataTable}
 				pagination={{ 
 					pageSize: 9,
 					total: totalPages,

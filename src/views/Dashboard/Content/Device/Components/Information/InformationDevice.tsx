@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 import { ThemeProvider, themes, useTheme } from '../../../../../../config/theme/theme';
 import { Col, Row, Typography, Select, Input, Button } from 'antd'; 
@@ -33,6 +33,13 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 	const [select3, setSelect3] = useState(false);
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 	const theme = useTheme(themeName);
+	const [search, setSearch] = useState('');
+	const [selectValueOne, setSelectValueOne] = useState('Tất cả');
+	const [selectValueTwo, setSelectValueTwo] = useState('Tất cả');
+
+	const handleSearch = (event : ChangeEvent<HTMLInputElement>) => {
+		setSearch(event.target.value)
+	};
 
 	const handleChangeUpAndDown1 = () => {
 		setSelect1(!select1);
@@ -42,10 +49,14 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 		setSelect2(!select2);
 	}
 
-	const handleChange = (value: string) => {
-		console.log(`selected ${value}`);
+	const handleChangeWorking = (value: string) => {
+		setSelectValueOne(value);
 	};
-	
+
+	const handleChangeConnect = (value: string) => {
+		setSelectValueTwo(value);
+	};
+
 	return (
 		<div style={{ padding: '0px 0 0 0px', width: '100%' }}>
 			<ThemeProvider value={themeName}>
@@ -77,7 +88,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 									}
 									defaultValue="Tất cả"
 									style={{ width: 300 }}
-									onChange={handleChange}
+									onChange={handleChangeWorking}
 									onClick={handleChangeUpAndDown1}
 								>
 									<Option value="Tất cả">Tất cả</Option>
@@ -94,7 +105,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 										fontWeight: 600
 									}}
 								>
-									Trạng thái hoạt động
+									Trạng thái kết nối
 								</Title>
 								<Select
 									showArrow={true}
@@ -107,7 +118,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 									}
 									defaultValue="Tất cả"
 									style={{ width: 300 }}
-									onChange={handleChange}
+									onChange={handleChangeConnect}
 									onClick={handleChangeUpAndDown2}
 								>
 									<Option value="Tất cả">Tất cả</Option>
@@ -141,6 +152,7 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 								placeholder='Nhập từ khóa'
 								style={{ width: 400, height: 50, fontSize: 16 }}
 								suffix={suffixIcon}
+								onChange={handleSearch}
 							/>
 						</div>
 					</Col>
@@ -158,7 +170,11 @@ const InformationDevice = ({ handleAddData } : AddFunctionDevice) => {
 							width: '90%'
 						}}
 					>
-						<Tabling />
+						<Tabling
+							searchProp={search}
+							selectValueOneProp={selectValueOne}
+							selectValueTwoProp={selectValueTwo}
+						/>
 						</div>
 					<div
 						style={{ marginTop: '30px', width: 70, height: 100, textAlign: 'center', backgroundColor: '#FFF2E7' }}

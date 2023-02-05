@@ -20,7 +20,7 @@ import Heading from './Components/Heading/Heading';
 import User from './Content/Information/User';
 // Routes all of contents
 import DashBoard from './Content/DashBoard/DashBoard';
-import Device from './Content/Device/Device';
+import { Device } from './Content/Device/Device';
 import Report from './Content/Report/Report';
 import Stack from './Content/Stack/Stack';
 import Service from './Content/Service/Service';
