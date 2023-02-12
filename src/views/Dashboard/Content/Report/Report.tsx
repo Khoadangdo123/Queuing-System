@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 import { Col, Row, Typography } from 'antd';
@@ -115,6 +115,11 @@ const data = [
 ];
 
 const Report = () => {
+
+  const [dataReport, setDataReport] = useState();
+
+  // NOTE: Using firebase from dataBase
+
 	return (
 		<div style={{ marginTop: 20 }}>
 			<div>

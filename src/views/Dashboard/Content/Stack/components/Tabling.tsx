@@ -1,6 +1,6 @@
 import '../Stack.css';
 
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Space, Table, Typography } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
@@ -8,18 +8,19 @@ import type { PaginationProps } from 'antd';
 
 import { GoPrimitiveDot } from 'react-icons/go';
 import { RiArrowRightSFill, RiArrowLeftSFill } from 'react-icons/ri';
+import { StackContext } from '../Stack';
 
 const { Text, Title } = Typography;
 
 interface DataType {
 	key: string;
-	number: string;
-	nameCustomer: string;
-	nameService: string;
-	deliveryTime: string;
-	expiry: string;
-	status: string;
-	supply: string;
+	STT: string;
+	NameCustomer: string;
+	NameService: string;
+	TimeProvider: string;
+	TimeOut: string;
+	Status: string;
+	Provide: string;
 };
 
 const styleTextColumn = {
@@ -36,8 +37,8 @@ const columns: ColumnsType<DataType> = [
 			</Text>
 		),
 		width: '4%',
-		dataIndex: 'number',
-		key: 'number',
+		dataIndex: 'STT',
+		key: 'STT',
 		render: (text) => {
 			return (
 				<>
@@ -56,7 +57,7 @@ const columns: ColumnsType<DataType> = [
 				Tên khách hàng
 			</Text>
 		),
-		dataIndex: 'nameCustomer',
+		dataIndex: 'NameCustomer',
 		key: 'nameDevice',
 		width: '8%',
 		render: (text) => {
@@ -77,8 +78,8 @@ const columns: ColumnsType<DataType> = [
 				Tên dịch vụ 
 			</Text>
 		),
-		dataIndex: 'nameService',
-		key: 'nameService',
+		dataIndex: 'NameService',
+		key: 'NameService',
 		width: '8%',
 		render: (text) => {
 			return (
@@ -98,8 +99,8 @@ const columns: ColumnsType<DataType> = [
 				Thời gian cấp
 			</Text>
 		),
-		dataIndex: 'deliveryTime',
-		key: 'deliveryTime',
+		dataIndex: 'TimeProvider',
+		key: 'TimeProvider',
 		width: '8%',
 		render: (text) => {
 			return (
@@ -119,8 +120,8 @@ const columns: ColumnsType<DataType> = [
 				Hạn sử dụng
 			</Text>
 		),
-		dataIndex: 'expiry',
-		key: 'expiry',
+		dataIndex: 'TimeOut',
+		key: 'TimeOut',
 		width: '8%',
 		render: (text) => {
 			return (
@@ -140,8 +141,8 @@ const columns: ColumnsType<DataType> = [
 				Trạng thái
 			</Text>
 		),
-		dataIndex: 'status',
-		key: 'status',
+		dataIndex: 'Status',
+		key: 'Status',
 		width: "6%",
 		render: (text) => {
 			if (text == 'Đang chờ') {
@@ -204,8 +205,8 @@ const columns: ColumnsType<DataType> = [
 				Nguồn cấp
 			</Text>
 		),
-		dataIndex: 'supply',
-		key: 'supply',
+		dataIndex: 'Provide',
+		key: 'Provide',
 		width: '6%',
 		render: (text) => {
 			return (
@@ -243,109 +244,6 @@ const columns: ColumnsType<DataType> = [
 	}
 ];
 
-const data: DataType[] = [
-	{
-		key: '1',
-		number: '2010001',
-		nameCustomer: 'Lê Huỳnh Ái Vân',
-		nameService: 'Khám tim mạch',
-		deliveryTime: '14:35 - 07/11/2021.',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đang chờ',
-		supply: 'Ngưng oạt động',
-	},
-	{
-		key: '2',
-		number: '2010002',
-		nameCustomer: 'Huỳnh Ái Vân',
-		nameService: 'Khám sản - Phụ Khoa',
-		deliveryTime: '14:35 - 07/11/2021.',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đã sử dụng',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '3',
-		number: '2010003',
-		nameCustomer: 'Lê Ái Vân',
-		nameService: 'Khám răng hàm mặt',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đã sử dụng',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '4',
-		number: '2010004',
-		nameCustomer: 'Nguyễn Ái Vân',
-		nameService: 'Khám tai mũi họng',
-		deliveryTime: '14:35 - 07/11/2021.',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đang chờ',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '5',
-		number: '2010005',
-		nameCustomer: 'Trần Thị Ái Vân',
-		nameService: 'Khám hô hấp',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đang chờ',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '6',
-		number: '2010006',
-		nameCustomer: 'Lê Huỳnh Nghĩa',
-		nameService: 'Khám tổng quát',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đang chờ',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '7',
-		number: '2010007',
-		nameCustomer: 'Lê Huỳnh Đức',
-		nameService: 'Khám tai mũi họng',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đã sử dụng',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '8',
-		number: '2010008',
-		nameCustomer: 'Kiosk',
-		nameService: 'Khám tổng quát',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đã sử dụng',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '9',
-		number: '2010009',
-		nameCustomer: 'Phạm Văn Mạnh',
-		nameService: 'Khám tai mũi họng',
-		deliveryTime: '14:35 - 07/11/2021',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Bỏ qua',
-		supply: 'Hoạt động',
-	},
-	{
-		key: '10',
-		number: '2010000',
-		nameCustomer: 'Khám tổng quát',
-		nameService: '192.168.1.10',
-		deliveryTime: '14:35 - 07/11/2021.',
-		expiry: '14:35 - 12/11/2021',
-		status: 'Đã sử dụng',
-		supply: 'Hoạt động',
-	}
-];
-
 const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
 	if (type === 'prev') {
 		return (
@@ -369,15 +267,17 @@ const Tabling = () => {
 	const [pagination, setPagination] = useState({});
 	const [totalPages, setTotalPages] = useState(10);
 
-	// const handleTableChange: TableProps<any>["onChange"] = (pagination) => {
-	// 	setPagination
-	// }
+	const { stackData } = useContext(StackContext);
+
+	useEffect(() => {
+		console.log(stackData);
+	}, [])
 
 	return (
 		<div>
 			<Table
 				columns={columns}
-				dataSource={data}
+				dataSource={stackData}
 				pagination={{ 
 					pageSize: 9,
 					total: totalPages,

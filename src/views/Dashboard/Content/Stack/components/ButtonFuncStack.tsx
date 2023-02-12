@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Col, Row, Typography, Select, Input, Button } from 'antd'; 
 
+import { RiArrowGoBackFill } from 'react-icons/ri';
 const { Title, Text } = Typography;
 
 type PropsAddFunction = {
@@ -64,7 +65,9 @@ const ButtonUpdate = ({ onChangeClickUpdated }: PropsAddFunction) => {
 	)
 }
 
-const ButtonCancelPrintNumber = () => {
+const ButtonCancelPrintNumber = ({
+	onChangeCancelPrint
+}) => {
 	return (
 		<>
 			<Button
@@ -74,6 +77,7 @@ const ButtonCancelPrintNumber = () => {
 					height: 50
 				}}
 				className="cancel_button"
+				onClick={onChangeCancelPrint}
 			>
 				<Text className='cancel_button-text'>
 					Hủy bỏ
@@ -83,7 +87,9 @@ const ButtonCancelPrintNumber = () => {
 	)
 }
 
-const ButtonPrintNumber = () => {
+const ButtonPrintNumber = ({
+	onChangePrintNumber
+}) => {
 	return (
 		<>
 			<Button
@@ -94,6 +100,7 @@ const ButtonPrintNumber = () => {
 					height: 50
 				}}
 				className="button_print"
+				onClick={onChangePrintNumber}
 			>
 				<Text className='button-text'>
 					In số
@@ -147,17 +154,78 @@ const ButtonFuncUpdatedAndCancel = ({ addSuccess, onChangeClickFailedFunc, onCha
 	)
 }
 
-const ButtonFuncPrintNumber = () => {
+const ButtonFuncPrintNumber = ({
+	onClickCancelPrint,
+	onClickPrintNumber
+}) => {
 	return (
 		<>
 			<div>
-				<ButtonCancelPrintNumber />
+				<ButtonCancelPrintNumber
+					onChangeCancelPrint={onClickCancelPrint}
+				/>
 			</div>
 			<div>
-				<ButtonPrintNumber />
+				<ButtonPrintNumber
+					onChangePrintNumber={onClickPrintNumber}
+				/>
 			</div>
 		</>
 	);
 }
 
-export { ButtonFuncAddAndCancelService, ButtonFuncPrintNumber };
+type ButtonTypeCancelProps = {
+	infoValue: boolean;
+	clickCancelBackToNumber: () => void;
+}
+
+const ButtonCancels = ({ infoValue, clickCancelBackToNumber } : ButtonTypeCancelProps) => {
+	return (
+		<>
+			<div 
+				style={{
+					marginLeft: 10,
+					padding: 12,
+					height: 80,
+					backgroundColor: '#FFF2E7', 
+					textAlign: 'center',
+					cursor: 'pointer',
+					display: `${infoValue ? 'block' : 'none'}`
+				}}
+				onClick={clickCancelBackToNumber}
+			>
+				<div style={{
+					width: '100%',
+					display: 'flex',
+					justifyContent: 'center'
+				}}>
+					<div style={{
+						backgroundColor: '#FF9138',
+						width: 32,
+						padding: 4,
+						textAlign: 'center',
+						borderRadius: 3
+					}}>
+						<Text>
+							<RiArrowGoBackFill
+								style={{
+									color: '#FFF2E7',
+									marginTop: 6
+								}}
+							/>
+						</Text>
+					</div>
+				</div>
+				<Text
+					style={{
+						color: '#FF7506',
+					}}
+				>
+					Quay lại
+				</Text>
+			</div>
+		</>
+	)
+}
+
+export { ButtonFuncAddAndCancelService, ButtonFuncPrintNumber, ButtonCancels };

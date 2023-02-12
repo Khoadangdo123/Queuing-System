@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 
 import { Col, Row, Typography, Select, Input, DatePicker, Checkbox, Button, Space } from 'antd';
@@ -11,6 +11,7 @@ import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import { VscCalendar } from 'react-icons/vsc';
+import { StackContext } from '../../Stack';
 import Tabling from '../Tabling';
 
 import type { SizeType } from 'antd/lib/config-provider/SizeContext';
@@ -87,9 +88,13 @@ const suffixIcon = (
 
 const SelectionStack = ({ handleAddData } : AddFunctionDevice) => {
 
+	const { stackData, setStackData } = useContext(StackContext);
+
 	const [select1, setSelect1] = useState(false);
 	const [select2, setSelect2] = useState(false);
 	const [select3, setSelect3] = useState(false);
+
+	const [filter, setFilter] = useState('');
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
 	const theme = useTheme(themeName);
 
@@ -104,6 +109,26 @@ const SelectionStack = ({ handleAddData } : AddFunctionDevice) => {
 	const handleChange = (value: string) => {
 		console.log(`selected ${value}`);
 	};
+
+	const onChangeSearchFilter = (event : ChangeEvent<HTMLInputElement>) => {
+		setFilter(event.target.value);
+	}
+
+	useEffect(() => {
+		const searchFilter = () => {
+		
+			let filterSearch = stackData.filter((dataText) => {
+				return (
+					dataText.NameCustomer.includes(filter) ||
+					dataText.STT.includes(filter) ||
+					dataText.Provide.includes(filter)
+				);
+			});
+			setStackData(filterSearch);
+		}
+		searchFilter();
+	}, [filter])
+
 
 	const dateCurrent = new Date();
 	let resultCurrentDate = formatDateCurrent(dateCurrent);
@@ -274,7 +299,9 @@ const SelectionStack = ({ handleAddData } : AddFunctionDevice) => {
 								className='input-customize'
 								placeholder='Nhập từ khóa'
 								style={{ width: 404, height: 50, fontSize: 16 }}
+								value={filter}
 								suffix={suffixIcon}
+								onChange={onChangeSearchFilter}
 							/>
 						</div>
 					</Col>

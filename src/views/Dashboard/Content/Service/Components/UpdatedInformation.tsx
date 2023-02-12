@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
 import moment from 'moment';
 
 import { ReactComponent as ArrowLeft } from './svg/arrowLeft.svg';
@@ -8,7 +8,7 @@ import type { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 import { ThemeProvider, themes, useTheme } from '../../../../../config/theme/theme';
 import { formatDateCurrent } from '../../../../../config/theme/time';
-import { ButtonFuncAddAndCancelService } from '.././Components/ButtonFuncService';
+import { ButtonFuncAddAndCancelService, ButtonFuncUpdatedAndCancel } from '.././Components/ButtonFuncService';
 import Information from '../Components/InformationService/Information';
 
 import { VscCalendar } from 'react-icons/vsc';
@@ -20,6 +20,7 @@ import { MdNoteAlt } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 
 import Tabling from './Tabling';
+import { UpdatedContext } from '../Service';
 
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
@@ -31,7 +32,27 @@ type ThemeNames = keyof typeof themes;
 const UpdatedInformation = () => {
 
 	const [themeName, setThemeName] = useState<ThemeNames>('buttonColorSubmit');
+	let {
+		increase,
+		prefix,
+		surfix,
+		reset,
+		valueDevice,
+		nameService,
+		descriptionValue,
+		handleChangeInputDeviceCode,
+		handleChangeInputNameService,
+		handleChangeAreaDescription,
+		onChangeCheckBoxIncrease,
+		onChangeCheckBoxPrefix,
+		onChangeCheckBoxSurfix,
+		onChangeCheckBoxResetDay,
+		onClickUpdatedList,
+		handleAddData
+	} = useContext<any>(UpdatedContext);
 	const theme = useTheme(themeName);
+	
+
 
 	return (
 		<>
@@ -56,7 +77,8 @@ const UpdatedInformation = () => {
 									</div>
 									<div style={{ textAlign: 'center' }}>
 										<Input
-											// onChange={handleChangeInputDeviceCode}
+											onChange={handleChangeInputDeviceCode}
+											value={valueDevice}
 											placeholder="201"
 											style={{ width: '76%', height: 50, fontSize: 16, fontWeight: 400 }}
 										/>
@@ -75,7 +97,8 @@ const UpdatedInformation = () => {
 									</div>
 									<div style={{ textAlign: 'center' }}>
 										<Input
-											// onChange={handleChangeInputNameService}
+											onChange={handleChangeInputNameService}
+											value={nameService}
 											placeholder="Khám tim mạch"
 											style={{ width: '76%', height: 50, fontSize: 16, fontWeight: 400 }}
 										/>
@@ -92,8 +115,8 @@ const UpdatedInformation = () => {
 								</div>
 								<div style={{ textAlign: 'center' }}>
 										<TextArea
-											// value={descriptionValue}
-											// onChange={handleChangeAreaDescription}
+											value={descriptionValue}
+											onChange={handleChangeAreaDescription}
 											rows={7}
 											placeholder={"Mô tả dịch vụ"}
 											maxLength={1000}
@@ -117,7 +140,7 @@ const UpdatedInformation = () => {
 										<Space align="center">
 											<Checkbox 
 												name="Increase" 
-												// onChange={onChangeCheckBoxIncrease}
+												onChange={onChangeCheckBoxIncrease}
 												style={{ fontSize: 20 }}
 											>
 												<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
@@ -155,7 +178,7 @@ const UpdatedInformation = () => {
 										<Space align="center">
 											<Checkbox 
 												name="prefix" 
-												// onChange={onChangeCheckBoxPrefix}
+												onChange={onChangeCheckBoxPrefix}
 												style={{ fontSize: 20 }}
 											>
 												<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
@@ -181,7 +204,7 @@ const UpdatedInformation = () => {
 										<Space align="center">
 											<Checkbox 
 												name="surfix" 
-												// onChange={onChangeCheckBoxSurfix} 
+												onChange={onChangeCheckBoxSurfix}
 												style={{ fontSize: 20 }}
 											>
 												<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
@@ -206,7 +229,7 @@ const UpdatedInformation = () => {
 									<div className="space-align-block">		
 										<Space align="center">
 											<Checkbox 
-												// onChange={onChangeCheckBoxResetDay}
+												onChange={onChangeCheckBoxResetDay}
 												style={{ fontSize: 20 }}
 											>
 												<Title level={5}>
@@ -231,11 +254,11 @@ const UpdatedInformation = () => {
 					</div>
 				</div>	
 				<div>
-					{/* <ButtonFuncAddAndCancelService
-						// addSuccess={addSuccess}	
-						// onChangeClickFailedFunc={onChangeAddData}
-						// onChangeClickSuccessFunc={onChangeClickSuccessChange}	
-					/> */}
+					<ButtonFuncUpdatedAndCancel
+						addSuccess={false}	
+						onChangeClickFailedFunc={onClickUpdatedList}
+						onChangeClickUpdatedFunc={handleAddData}	
+					/>
 				</div>
 			</ThemeProvider>
 		</>

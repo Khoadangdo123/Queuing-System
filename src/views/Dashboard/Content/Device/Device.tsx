@@ -13,7 +13,8 @@ import { InputInfo } from './Components/InputInfo';
 import { db } from '../../../../config/firebase/firebase.config';
 import { 
 	collection,
-	addDoc
+	addDoc,
+	getDocs
 } from 'firebase/firestore';
 
 const { Title } = Typography;
@@ -152,6 +153,8 @@ const Device = () => {
 		await window.location.reload();
 	};
 
+	
+
 	return (
 		<>
 			{
@@ -194,9 +197,10 @@ const Device = () => {
 									<>
 										<InputContext.Provider value={{ 
 												dataInputGlobal, 
-												handleInputChange,
 												selectDevice,
-												handleChangeSelect,
+												handleChangeValueSelect,
+												valueSelectProps,
+												onChangeClickSuccessChange
 											}}
 										>
 											<InformationAdd
@@ -219,4 +223,6 @@ const Device = () => {
 	)
 }
 
-export { Device, InputContext, TitleDeviceControl, TitleDeviceInformation };
+export { 
+	Device, InputContext, TitleDeviceControl, TitleDeviceInformation,  
+};

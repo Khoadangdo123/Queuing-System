@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, createContext, useContext, useEffect } from 'react';
 import moment from 'moment';
 
 import { ReactComponent as ArrowLeft } from './svg/arrowLeft.svg';
@@ -10,6 +10,7 @@ import { ThemeProvider, themes, useTheme } from '../../../../config/theme/theme'
 import { formatDateCurrent } from '../../../../config/theme/time';
 import { ButtonFuncAddAndCancelService } from './Components/ButtonFuncService';
 import Information from './Components/InformationService/Information';
+import { UpdatedInformation } from './Components/UpdatedInformation';
 
 import { VscCalendar } from 'react-icons/vsc';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
@@ -18,8 +19,11 @@ import { BsFillPlusSquareFill } from 'react-icons/bs';
 import { CgAsterisk } from 'react-icons/cg';
 import { MdNoteAlt } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
+import { db } from '../../../../config/firebase/firebase.config';
 
 import Tabling from './Components/Tabling';
+import TablingDevice from './Components/TablingDevice';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
@@ -60,6 +64,8 @@ const ArrowLeftIcon = () => {
 	)
 }
 
+const UpdatedContext = createContext<any>(null);
+
 const Service = () => {
 
 	const [updated, setUpdated] = useState(false);
@@ -74,7 +80,8 @@ const Service = () => {
 	const [disabled, setDisabled] = useState(false);
 
 	const onClickUpdatedList = () => {
-		setUpdated(!updated)
+		setUpdated(!updated);
+		console.log(updated)
 	}
 
 	const onClickCancelList = () => {
@@ -91,6 +98,10 @@ const Service = () => {
 
 	const onChangeAddData = () => {
 		setAdd(!add);
+	};
+
+	const handleChangeUpdated = async () => {
+
 	}
 
 
@@ -192,6 +203,167 @@ const Service = () => {
 		}
 	}
 
+	const InfoAndRulesPrefix = () => {
+		if (prefix) {
+			return (
+				<>
+					<div className="space-align-container" style={{ marginBottom: 20 }}>
+						<div className="space-align-block">		
+							<Space align="center">
+								<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
+									Prefix:
+								</Title>
+								<div style={{ display: 'flex', marginLeft: 76 }}>
+									<div className="space-align-container" style={{ width: 62, height: 45, border: '1.5px solid #D4D4D7', borderRadius: 8, textAlign: 'center' }}>
+										<div className="space-align-block" style={{ marginTop: '6px' }}>
+											<Space align='center'>
+												<Text style={{ fontSize: 16, fontWeight: 400, color: theme.textColorGray }}>
+													0001
+												</Text>	
+											</Space>
+										</div>
+									</div>
+								</div>	
+							</Space>
+						</div>	
+					</div>
+				</>
+			)
+		} else {
+			return (
+				<>
+				</>
+			)
+		}
+	}
+
+	const InfoAndRulesSurfix = () => {
+		if (surfix) {
+			return (
+				<>
+					<div className="space-align-container" style={{ marginBottom: 20 }}>
+						<div className="space-align-block">		
+							<Space align="center">
+								<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
+									Surfix:
+								</Title>
+								<div style={{ display: 'flex', marginLeft: 76 }}>
+									<div className="space-align-container" style={{ width: 62, height: 45, border: '1.5px solid #D4D4D7', borderRadius: 8, textAlign: 'center' }}>
+										<div className="space-align-block" style={{ marginTop: '6px' }}>
+											<Space align='center'>
+												<Text style={{ fontSize: 16, fontWeight: 400, color: theme.textColorGray }}>
+													0001
+												</Text>	
+											</Space>
+										</div>
+									</div>
+								</div>	
+							</Space>
+						</div>	
+					</div>
+				</>
+			)
+		} else {
+			return (
+				<>
+				</>
+			)
+		}
+	}
+
+	const InfoAndRulesResetDay = () => {
+		if (reset) {
+			return (
+				<>
+					<div className="space-align-container">
+						<div className="space-align-block">
+							<Space align="center">
+								<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
+								Reset mỗi ngày
+								</Title>
+							</Space>
+						</div>
+					</div>
+					<div className="space-align-container">
+						<div className="space-align-block" style={{ marginTop: 20 }}>
+							<Space align="center">
+								<Text style={{ fontWeight: 400, fontSize: 16, color: theme.textColorBlack }}>
+								Ví dụ: 201-2001
+								</Text>
+							</Space>
+						</div>
+					</div>
+				</>
+			)
+		} else {
+			return (
+				<></>
+			)
+		}
+	}
+
+	// NOTE: Use DataBase by Firebase TablingDevice
+	const usersServiceDataRef = collection(db, 'service_data')	
+	// ~: TablingDevice
+
+	const [dataService, setDataService] = useState<any>([
+		{
+			CodeService: '',
+			NameService: '',
+			Description: '',
+			Status: "",
+		}
+	])
+
+
+	const handleAddData = async () => {
+		await addDoc(usersServiceDataRef, {
+			CodeService: valueDevice,
+			NameService: nameService,
+			Description: descriptionValue,
+			Status: "Hoạt động",
+			Increase: increase,
+			Prefix: prefix,
+			Surfix: surfix,
+			Reset: reset,
+		});
+
+		await window.location.reload();
+	}
+
+	useEffect(() => {
+		const getDataService = async () => {
+			const data = await getDocs(usersServiceDataRef);
+			setDataService(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+		};
+
+		getDataService();
+	}, []);
+
+	// ~: Tabling
+
+	const [searchProp, setSearchProp] = useState('')
+
+	const handleChangeSearch = (e : ChangeEvent<HTMLInputElement>) => {
+		setSearchProp(e.target.value);
+	}
+
+	useEffect(() => {
+		const searchFilter = () => {
+			let filterSearch = dataService.filter((dataText) => {
+				return (
+					dataText.CodeService.includes(searchProp) ||
+					dataText.NameService.includes(searchProp) ||
+					dataText.Description.includes(searchProp)
+				);
+			});
+			setDataService(filterSearch);
+		}
+		searchFilter();
+		
+	}, [searchProp])
+
+
 	return (
 		<div style={{ padding: '0px 0 0 0px', width: '100%' }}>
 			<ThemeProvider value={themeName}>
@@ -210,7 +382,29 @@ const Service = () => {
 											{
 												updated ? (
 													<>
-														OKE
+														<UpdatedContext.Provider value={{
+															dataService,
+															updated,
+															setUpdated,
+															increase,
+															prefix,
+															surfix,
+															reset,
+															valueDevice,
+															nameService,
+															descriptionValue,
+															handleChangeInputDeviceCode,
+															handleChangeInputNameService,
+															handleChangeAreaDescription,
+															onChangeCheckBoxIncrease,
+															onChangeCheckBoxPrefix,
+															onChangeCheckBoxSurfix,
+															onChangeCheckBoxResetDay,
+															onClickUpdatedList,
+															handleAddData
+														}}>
+															<UpdatedInformation />
+														</UpdatedContext.Provider>
 													</>
 												) : (
 													<div style={{ marginTop: 10, width: '100%', height: '80vh' }}>
@@ -264,51 +458,14 @@ const Service = () => {
 																		<Title level={4} style={{ marginBottom: 20, color: theme.textColorOrange, fontWeight: 700 }}>
 																		Quy tắc cấp số
 																		</Title>
+																		{/* Inscrease */}
 																		<InfoAndRulesIncrease />
 																		{/* Prefix */}
-																		<>
-																			<div className="space-align-container" style={{ marginBottom: 20 }}>
-																				<div className="space-align-block">		
-																					<Space align="center">
-																						<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
-																							Prefix:
-																						</Title>
-																						<div style={{ display: 'flex', marginLeft: 76 }}>
-																							<div className="space-align-container" style={{ width: 62, height: 45, border: '1.5px solid #D4D4D7', borderRadius: 8, textAlign: 'center' }}>
-																								<div className="space-align-block" style={{ marginTop: '6px' }}>
-																									<Space align='center'>
-																										<Text style={{ fontSize: 16, fontWeight: 400, color: theme.textColorGray }}>
-																											0001
-																										</Text>	
-																									</Space>
-																								</div>
-																							</div>
-																						</div>	
-																					</Space>
-																				</div>	
-																			</div>
-																		</>
+																		<InfoAndRulesPrefix />
+																		{/* Surfix */}
+																		<InfoAndRulesSurfix />
 																		{/* Reset Days Components */}
-																		<>
-																			<div className="space-align-container">
-																				<div className="space-align-block">
-																					<Space align="center">
-																						<Title level={5} style={{ color: theme.textColorBlack, fontWeight: 600 }}>
-																						Reset mỗi ngày
-																						</Title>
-																					</Space>
-																				</div>
-																			</div>
-																			<div className="space-align-container">
-																				<div className="space-align-block" style={{ marginTop: 20 }}>
-																					<Space align="center">
-																						<Text style={{ fontWeight: 400, fontSize: 16, color: theme.textColorBlack }}>
-																						Ví dụ: 201-2001
-																						</Text>
-																					</Space>
-																				</div>
-																			</div>
-																		</>
+																		<InfoAndRulesResetDay />
 																	</div>
 
 																</div>
@@ -353,7 +510,7 @@ const Service = () => {
 																background: '#FFF2E7', 
 																padding: '20px 10px 2px 10px', 
 																cursor: 'pointer' 
-																}}
+															}}
 																onClick={onClickCancelList}
 															>
 																<div style={{ textAlign: 'center' }}>
@@ -671,6 +828,7 @@ const Service = () => {
 											placeholder='Nhập từ khóa'
 											style={{ width: 400, height: 50, fontSize: 16 }}
 											suffix={SearchIcon}
+											onChange={handleChangeSearch}
 										/>
 									</div>
 								</Col>
@@ -688,7 +846,13 @@ const Service = () => {
 										width: '90%'
 									}}
 								>
-									<Tabling />
+									<UpdatedContext.Provider value={{
+										handleAddData,
+										dataService
+									}}>
+
+										<TablingDevice />
+									</UpdatedContext.Provider>
 								</div>
 								<div
 									style={{ marginTop: '30px', width: 70, height: 100, textAlign: 'center', backgroundColor: '#FFF2E7' }}
@@ -711,4 +875,4 @@ const Service = () => {
 	)
 }
 
-export default Service;
+export { Service, UpdatedContext };

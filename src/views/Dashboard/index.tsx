@@ -23,7 +23,7 @@ import DashBoard from './Content/DashBoard/DashBoard';
 import { Device } from './Content/Device/Device';
 import Report from './Content/Report/Report';
 import Stack from './Content/Stack/Stack';
-import Service from './Content/Service/Service';
+import { Service } from './Content/Service/Service';
 import System from './Content/Settings/System';
 import Account from './Content/Settings/Account';
 import Notes from './Content/Settings/Notes';
